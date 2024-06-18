@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: users
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_blocked
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+        - addPrimaryKey:
+            tableName: users
+            columnNames: id
+            constraintName: pk_user_id
+        - addUniqueConstraint:
+            tableName: users
+            columnNames: email
+            constraintName: uq_email_id
+        - addUniqueConstraint:
+            tableName: users
+            columnNames: username
+            constraintName: uq_username_id
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: users
+            constraintName: fk_role_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: roles

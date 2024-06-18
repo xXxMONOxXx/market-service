@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 21
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: services
+            columns:
+              - column:
+                  name: updated_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: updated_by
+            baseTableName: services
+            constraintName: fk_services_updated_by
+            referencedColumnNames: id
+            referencedTableName: users

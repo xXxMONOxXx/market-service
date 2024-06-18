@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: product_categories
+      changes:
+        - createTable:
+            tableName: product_categories
+            columns:
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: product_categories
+            columnNames: product_id, category_id
+            constraintName: pk_product_category_id
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: product_categories
+            constraintName: fk_product_id_for_category
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: products
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: product_categories
+            constraintName: fk_category_id_for_product
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: categories

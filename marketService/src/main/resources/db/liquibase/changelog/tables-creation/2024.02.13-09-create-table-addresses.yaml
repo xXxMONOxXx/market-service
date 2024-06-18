@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: addresses
+      changes:
+        - createTable:
+            tableName: addresses
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: street
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: apartment
+                  type: varchar(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: postcode
+                  type: varchar(64)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: addresses
+            columnNames: id
+            constraintName: pk_address_id
+        - addForeignKeyConstraint:
+            baseColumnNames: created_by
+            baseTableName: addresses
+            constraintName: fk_address_creator_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users

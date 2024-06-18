@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mikhail_stoma
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            schemaName: public
+            tableName: statuses

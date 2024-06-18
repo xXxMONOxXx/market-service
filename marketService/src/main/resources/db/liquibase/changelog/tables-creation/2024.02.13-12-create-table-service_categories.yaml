@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: service_categories
+      changes:
+        - createTable:
+            tableName: service_categories
+            columns:
+              - column:
+                  name: service_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: service_categories
+            columnNames: service_id, category_id
+            constraintName: pk_service_category_id
+        - addForeignKeyConstraint:
+            baseColumnNames: service_id
+            baseTableName: service_categories
+            constraintName: fk_service_id_for_category
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: services
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: product_categories
+            constraintName: fk_category_id_for_service
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: categories

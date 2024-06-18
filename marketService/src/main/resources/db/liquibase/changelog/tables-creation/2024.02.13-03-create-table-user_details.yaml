@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: user_details
+      changes:
+        - createTable:
+            tableName: user_details
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthdate
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: firstname
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sex
+                  type: boolean
+                  constraints:
+                    nullable: true
+        - addPrimaryKey:
+            tableName: user_details
+            columnNames: id
+            constraintName: pk_user_details_id
+        - addUniqueConstraint:
+            tableName: user_details
+            columnNames: phone
+            constraintName: uq_phone_id
+        - addForeignKeyConstraint:
+            baseColumnNames: id
+            baseTableName: user_details
+            constraintName: fk_user_id_for_details
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: mikhail_stoma
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_payments_user_id
+            tableName: payments
+        - createIndex:
+            columns:
+              - column:
+                  name: order_id
+            indexName: idx_payments_order_id
+            tableName: payments

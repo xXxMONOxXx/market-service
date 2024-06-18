@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 17
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: products
+            columns:
+              - column:
+                  name: updated_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: updated_by
+            baseTableName: products
+            constraintName: fk_products_updated_by
+            referencedColumnNames: id
+            referencedTableName: users

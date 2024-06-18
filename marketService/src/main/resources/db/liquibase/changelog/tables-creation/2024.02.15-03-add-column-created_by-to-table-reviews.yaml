@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 18
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: reviews
+            columns:
+              - column:
+                  name: updated_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: updated_by
+            baseTableName: reviews
+            constraintName: fk_reviews_updated_by
+            referencedColumnNames: id
+            referencedTableName: users

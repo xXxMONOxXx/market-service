@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - includeAll:
+      path: classpath:/db/liquibase/changelog/tables-creation
+  - includeAll:
+      path: classpath:/db/liquibase/changelog/indexes-creation
+  - includeAll:
+      path: classpath:/db/liquibase/changelog/drop-tables

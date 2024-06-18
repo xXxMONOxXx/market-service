@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 29
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: images
+      changes:
+        - createTable:
+            tableName: images
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: service_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_preview
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: filename
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: images
+            columnNames: id
+            constraintName: pk_image_id
+        - addUniqueConstraint:
+            tableName: images
+            columnNames: filename
+            constraintName: uq_image_filename
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: images
+            constraintName: fk_image_product_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: products
+        - addForeignKeyConstraint:
+            baseColumnNames: service_id
+            baseTableName: images
+            constraintName: fk_image_service_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: services
+

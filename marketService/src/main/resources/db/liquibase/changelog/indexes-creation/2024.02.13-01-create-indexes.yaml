@@ -1,0 +1,113 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mikhail_stoma
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: fk_roles_user_id
+            tableName: roles
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_status_id
+            tableName: statuses
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_address_id
+            tableName: addresses
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_category_id
+            tableName: categories
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_product_id
+            tableName: products
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_order_id
+            tableName: orders
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_service_id
+            tableName: services
+        - createIndex:
+            columns:
+              - column:
+                  name: id
+            indexName: idx_review_id
+            tableName: reviews
+        - createIndex:
+            columns:
+              - column:
+                  name: order_id
+            indexName: idx_order_product_id
+            tableName: order_products
+        - createIndex:
+            columns:
+              - column:
+                  name: created_by
+            indexName: idx_customer_id_for_order
+            tableName: orders
+        - createIndex:
+            columns:
+              - column:
+                  name: product_id
+            indexName: idx_product_id_for_categories
+            tableName: product_categories
+        - createIndex:
+            columns:
+              - column:
+                  name: product_id
+            indexName: idx_product_id_for_history
+            tableName: product_prices_history
+        - createIndex:
+            columns:
+              - column:
+                  name: service_id
+            indexName: idx_service_id_for_category
+            tableName: service_categories
+        - createIndex:
+            columns:
+              - column:
+                  name: created_by
+            indexName: idx_reviewer_id
+            tableName: reviews
+        - createIndex:
+            columns:
+              - column:
+                  name: product_or_service_id
+            indexName: idx_product_or_service_id
+            tableName: reviews
+        - createIndex:
+            columns:
+              - column:
+                  name: worker_id
+            indexName: idx_worker_id
+            tableName: services
+        - createIndex:
+            columns:
+              - column:
+                  name: username
+            indexName: idx_username
+            tableName: users
+        - createIndex:
+            columns:
+              - column:
+                  name: email
+            indexName: idx_email
+            tableName: users

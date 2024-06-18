@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 31
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: products
+            columns:
+              - column:
+                  name: product_details
+                  type: jsonb

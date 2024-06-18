@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: products
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 0
+              - column:
+                  name: description
+                  type: varchar(1028)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: products
+            columnNames: id
+            constraintName: pk_products_id
+        - addForeignKeyConstraint:
+            baseColumnNames: seller_id
+            baseTableName: products
+            constraintName: fk_seller_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users

@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: order_service
+      changes:
+        - createTable:
+            tableName: order_service
+            columns:
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: order_service
+            columnNames: order_id, service_id
+            constraintName: pk_order_service_id
+        - addForeignKeyConstraint:
+            baseColumnNames: service_id
+            baseTableName: order_service
+            constraintName: fk_service_id_for_order
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: services
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: order_products
+            constraintName: fk_order_id_for_service
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: orders

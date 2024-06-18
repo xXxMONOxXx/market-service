@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'edu.azati'
+version = '0.0.1-SNAPSHOT'
+
+ext {
+    itextVersion = '5.5.13.3'
+    itextLayoutVersion = '8.0.3'
+    jsr310Version = '2.16.1'
+    lombokVersion = '1.18.30'
+}
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-activemq'
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310Version}"
+    implementation "com.itextpdf:itextpdf:${itextVersion}"
+    implementation "com.itextpdf:layout:${itextLayoutVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310Version}"
+
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

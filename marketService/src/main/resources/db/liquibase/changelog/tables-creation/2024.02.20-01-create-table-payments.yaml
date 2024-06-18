@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 22
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: payments
+      changes:
+        - createTable:
+            tableName: payments
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stripe_token
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: payments
+            columnNames: id
+            constraintName: pk_payment_id
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: payments
+            constraintName: fk_payments_user_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: payments
+            constraintName: fk_payments_order_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: orders
+        - addForeignKeyConstraint:
+            baseColumnNames: status_id
+            baseTableName: payments
+            constraintName: fk_payments_status_id
+            referencedColumnNames: id
+            referencedTableName: statuses

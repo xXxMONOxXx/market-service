@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26
+      author: mikhail_stoma
+      changes:
+        - dropColumn:
+            columnName: status_id
+            tableName: payments
+        - addColumn:
+            tableName: payments
+            columns:
+              - column:
+                  name: current_status
+                  type: tinyint

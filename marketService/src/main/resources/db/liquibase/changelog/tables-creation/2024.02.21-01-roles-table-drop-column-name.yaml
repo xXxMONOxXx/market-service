@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 23
+      author: mikhail_stoma
+      changes:
+        - dropColumn:
+            columnName: name
+            tableName: roles
+

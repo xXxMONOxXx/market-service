@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: order_products
+      changes:
+        - createTable:
+            tableName: order_products
+            columns:
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: tinyint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: order_products
+            columnNames: order_id, product_id
+            constraintName: pk_order_product_id
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: order_products
+            constraintName: fk_product_id_for_order
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: products
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: order_products
+            constraintName: fk_order_id_for_product
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: orders

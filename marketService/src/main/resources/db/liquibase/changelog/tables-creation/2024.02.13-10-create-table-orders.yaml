@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: mikhail_stoma
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: orders
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_has_products
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: orders
+            columnNames: id
+            constraintName: pk_order_id
+        - addForeignKeyConstraint:
+            baseColumnNames: status_id
+            baseTableName: orders
+            constraintName: fk_order_status_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: statuses
+        - addForeignKeyConstraint:
+            baseColumnNames: created_by
+            baseTableName: orders
+            constraintName: fk_order_creator_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users
+        - addForeignKeyConstraint:
+            baseColumnNames: address_id
+            baseTableName: orders
+            constraintName: fk_order_address_id
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: addresses

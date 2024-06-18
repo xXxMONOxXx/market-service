@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 19
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: updated_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: updated_by
+            baseTableName: orders
+            constraintName: fk_orders_updated_by
+            referencedColumnNames: id
+            referencedTableName: users

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 25
+      author: mikhail_stoma
+      changes:
+        - dropColumn:
+            columnName: status_id
+            tableName: orders
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: current_status
+                  type: tinyint

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: addresses
+            columns:
+              - column:
+                  name: updated_by
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: updated_by
+            baseTableName: addresses
+            constraintName: fk_addresses_updated_by
+            referencedColumnNames: id
+            referencedTableName: users

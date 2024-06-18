@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 32
+      author: mikhail_stoma
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: verified_at
+                  type: datetime

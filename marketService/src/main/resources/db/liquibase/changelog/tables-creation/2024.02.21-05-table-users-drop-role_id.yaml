@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 27
+      author: mikhail_stoma
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: users
+            baseTableSchemaName: public
+            constraintName: fk_role_id
+        - dropColumn:
+            columnName: role_id
+            tableName: users
